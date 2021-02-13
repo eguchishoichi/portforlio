@@ -69,23 +69,32 @@ $('html,body').animate({scrollTop:$(".contact").offset().top});
 // animatedクラスの付いた要素にwaypointを登録
 $('.animated').waypoint({
   handler(direction) {
-    // 要素が画面中央に来るとここが実行される
     if (direction === 'down') {
-      /**
-       * 下方向のスクロール
-       * イベント発生元の要素にfadeInUpクラスを付けることで
-       * アニメーションを開始
-       */
       $(this.element).addClass('fadeInUp');
-
-      /**
-       * waypointを削除することで、この要素に対しては
-       * これ以降handlerが呼ばれなくなる
-       */
-      this.destroy();
+      $(this.element).removeClass('fadeOutUp');
+  
     }
   },
-
-  // 要素が画面中央に来たらhandlerを実行
-  offset: '50%',
+  /**
+   * 要素の上端が画面のどの位置に来たときにhandlerメソッドを呼び出すか指定
+   * 0%なら画面の一番上、100%なら画面の一番下に来たときに呼び出される
+   */
+  offset: '80%',
 });
+
+$('.animated').waypoint({
+  handler(direction) {
+    if (direction === 'up') {
+      $(this.element).addClass('fadeOutUp');
+      $(this.element).removeClass('fadeInUp');
+    }
+  },
+  /**
+   * 要素の上端が画面のどの位置に来たときにhandlerメソッドを呼び出すか指定
+   * 0%なら画面の一番上、100%なら画面の一番下に来たときに呼び出される
+   */
+  offset: '95%',
+});
+
+
+
